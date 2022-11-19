@@ -5,7 +5,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 export default function Login({navigation}) {
 
-
   const [ UserName, setUserName ] = useState('')
   const [ Password, setPassWord ] = useState('')
 
