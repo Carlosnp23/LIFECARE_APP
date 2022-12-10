@@ -95,6 +95,7 @@ router.get('/Users/findAllUsers', function (req, res) {
 })
 
 
+//Patients
 var controllerPatients = require('./Controller/PatientsController')
 
 //Add Patients
