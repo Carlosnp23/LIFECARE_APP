@@ -60,7 +60,7 @@ export default function Register({navigation}) {
             style={stylesR.buttonContainer}
             onPress={handleSubmit}
           >
-            <Text style={stylesR.buttonText}>Sign Up</Text>
+            <Text style={stylesR.buttonText}>Register</Text>
         </TouchableOpacity>
         </View>
         </View>

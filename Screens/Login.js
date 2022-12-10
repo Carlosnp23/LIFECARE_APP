@@ -32,13 +32,13 @@ export default function Login({navigation}) {
             style={stylesR.buttonContainer}
             onPress={() => navigation.navigate('mainScreen')}
           >
-            <Text style={stylesR.buttonText}>Sign In</Text>
+            <Text style={stylesR.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity
             style={stylesR.buttonContainer}
             onPress={() => navigation.navigate('register')}
           >
-            <Text style={stylesR.buttonText}>Sign Up</Text>
+            <Text style={stylesR.buttonText}>Register</Text>
         </TouchableOpacity>
         </View>
         </View>

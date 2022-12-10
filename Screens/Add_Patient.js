@@ -1,19 +1,32 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, } from "react-native";
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import DatePicker from 'react-native-datepicker';
-import axios from 'axios'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import axios from 'axios';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import RadioGroup from 'react-native-radio-buttons-group';
 
 
+
+const radioButtonsData = [
+  {
+    id: '1', // acts as primary key, should be unique and non-empty string
+    label: 'Male',
+    value: 'Male',
+  },
+  {
+    id: '2',
+    label: 'Female',
+    value: 'Female',
+  },
+];
 
 export default function AddNewPatient({navigation}) {
 
   const [ First_Name, setFirst_Name ] = useState('')
   const [ Last_Name, setLast_Name ] = useState('')
-  const [ GenderValue, setGenderValue ] = useState('')
+  const [ GenderValue, setGenderValue ] = React.useState('')
   const [ Mobile, setMobile ] = useState('')
-  const [ date, setDate ] = useState('09-10-2020');
+  const [ date, setDate ] = useState('09-10-2000');
   const [ Email, setEmail ] = useState('')
   const [ Address, setAddress ] = useState('')
   const [ City, setCity ] = useState('')
@@ -21,28 +34,26 @@ export default function AddNewPatient({navigation}) {
   const [ State_Province, setState_Province ] = useState('')
   const [ ZIP_PostalCode, setZIP_PostalCode ] = useState('')
 
-   
-  var Gender = [
-    {label: 'Male', value: 0 },
-    {label: 'Female', value: 1 },
-  ];
-
+  const setValue = (value) => {
+    var newArray = value.filter((item)=>item.selected===true); //get the items that are selected
+    setGenderValue(newArray[0].value); //set the selected value in this Hook
+  };
 
   const handleSubmit = async () => {
-    if (First_Name === '' || Last_Name === '' || Mobile === '' || date === '' 
+    if (First_Name === '' || Last_Name === '' || GenderValue === '' || Mobile === '' || date === '' 
       || Email === '' || Address === '' || City === '' || Country === '' 
       || State_Province === '' || ZIP_PostalCode === '') {
         alert("All fields are required");
         return;
     }
     await axios.post("http://127.0.0.1:3000/Patients/AddNewPatients", { 
-      First_Name, Last_Name, Mobile, date, Email, Address, 
+      First_Name, Last_Name, GenderValue, Mobile, date, Email, Address, 
       City, Country, State_Province, ZIP_PostalCode });
     alert("Add New Patient Successful");
+    navigation.navigate('mainScreen')
 };
 
 
-      
     return (
       <KeyboardAwareScrollView>
         <View style = {stylesAP.container}>
@@ -62,15 +73,14 @@ export default function AddNewPatient({navigation}) {
           autoCapitalize = "words"
           autoCorrect = {false}
         />
-        <View style = {stylesAP.buttonRadio}>
-        <Text style = {stylesAP.text}>          Gender</Text>
-        <RadioForm
-        radio_props = {Gender}
-        onPress = {(value) => {}}
+        <View style = {stylesAP.textdate}>
+        <Text style = {stylesAP.text}>Gender</Text>
+        <RadioGroup
+        radioButtons={radioButtonsData} //pass in our array
+        onPress={(value) => setValue(value)}
         value={GenderValue}
-        formHorizontal = {true}
-        animation={true}
-        />
+        layout='row'
+      />
         </View>
         <TextInput
           placeholder = "Mobile"
